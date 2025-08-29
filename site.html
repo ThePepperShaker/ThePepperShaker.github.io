@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Countdown ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Caveat', cursive;
+            background: linear-gradient(135deg, #a8e6cf 0%, #88d8a3 30%, #7fcdcd 70%, #95b8d1 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 75%, rgba(139, 195, 74, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 75% 25%, rgba(102, 187, 106, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .countdown-display {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 60px;
+        }
+
+        .title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .date-target {
+            font-size: 1.5rem;
+            font-weight: 400;
+            opacity: 0.85;
+            margin-bottom: 30px;
+        }
+
+        .countdown-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .time-unit {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(139, 195, 74, 0.2);
+            border-radius: 12px;
+            padding: 18px;
+            min-width: 90px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .time-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            display: block;
+            color: #1b5e20;
+        }
+
+        .time-label {
+            font-size: 1.1rem;
+            font-weight: 400;
+            opacity: 0.8;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+        }
+
+        .birds-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-top: 40px;
+        }
+
+        .bird {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4rem;
+            transition: all 2s ease-in-out;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .bird-left {
+            left: 0;
+            transform: translateY(-50%) scaleX(-1);
+        }
+
+        .bird-right {
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .heart-trail {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            font-size: 1.5rem;
+        }
+
+        .progress-bar {
+            width: 70%;
+            height: 6px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 3px;
+            margin: 40px auto 20px;
+            overflow: hidden;
+            border: 1px solid rgba(139, 195, 74, 0.2);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #66bb6a, #81c784);
+            border-radius: 3px;
+            transition: width 1s ease-out;
+        }
+
+        .message {
+            text-align: center;
+            color: #2e7d32;
+            font-size: 1.4rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .heart-beat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .title { 
+                font-size: 2.2rem; 
+                font-weight: 600;
+            }
+            .date-target {
+                font-size: 1.3rem;
+            }
+            .countdown-numbers { 
+                gap: 15px;
+                flex-wrap: wrap;
+            }
+            .time-unit {
+                min-width: 80px;
+                padding: 15px;
+            }
+            .time-number { 
+                font-size: 2.2rem; 
+                font-weight: 700;
+            }
+            .bird { font-size: 3rem; }
+            .message {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="countdown-display">
+            <h1 class="title">Days Until November 15th</h1>
+            <div class="date-target">2025</div>
+            
+            <div class="countdown-numbers">
+                <div class="time-unit">
+                    <span class="time-number" id="days">--</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="hours">--</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="minutes">--</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <div class="time-unit">
+                    <span class="time-number" id="seconds">--</span>
+                    <span class="time-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="birds-container">
+            <div class="bird bird-left" id="birdLeft">🐦</div>
+            <div class="heart-trail" id="heartTrail">💕</div>
+            <div class="bird bird-right" id="birdRight">🐤</div>
+        </div>
+
+        <div class="message" id="message">
+            Counting down the days
+        </div>
+    </div>
+
+    <script>
+        // Set target date to November 15th, 2025
+        const targetDate = new Date('2025-11-15T00:00:00').getTime();
+        const startDate = new Date().getTime();
+        const totalDuration = targetDate - startDate;
+
+        // Calculate total days from start to target
+        const totalDays = Math.ceil(totalDuration / (1000 * 60 * 60 * 24));
+        let lastDayCount = null;
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            const timeElapsed = now - startDate;
+            
+            // Calculate time units
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Update display
+            document.getElementById('days').textContent = Math.max(0, days);
+            document.getElementById('hours').textContent = Math.max(0, hours);
+            document.getElementById('minutes').textContent = Math.max(0, minutes);
+            document.getElementById('seconds').textContent = Math.max(0, seconds);
+
+            // Only update bird positions when day count changes
+            if (lastDayCount === null || lastDayCount !== days) {
+                lastDayCount = days;
+                
+                // Calculate progress based on days only
+                const daysElapsed = totalDays - Math.max(0, days);
+                const dayProgress = Math.min(100, Math.max(0, (daysElapsed / totalDays) * 100));
+                document.getElementById('progressFill').style.width = dayProgress + '%';
+
+                // Move birds closer based on day progress
+                const containerWidth = document.querySelector('.birds-container').offsetWidth;
+                const birdLeftEl = document.getElementById('birdLeft');
+                const birdRightEl = document.getElementById('birdRight');
+                
+                // Start birds at opposite edges (0% and 100% of container width)
+                // Move them closer as days pass - they meet around 15% from each edge
+                const maxDistance = 0; // Start at very edges
+                const minDistance = 35; // End position (percentage from edge)
+                const currentDistance = maxDistance + (dayProgress / 100) * (minDistance - maxDistance);
+                
+                birdLeftEl.style.left = currentDistance + '%';
+                birdRightEl.style.right = currentDistance + '%';
+
+                // Show hearts when birds are close (last 10% of days)
+                const heartTrail = document.getElementById('heartTrail');
+                if (dayProgress > 90) {
+                    heartTrail.style.opacity = '1';
+                    heartTrail.classList.add('heart-beat');
+                }
+            }
+
+
+
+            // Update message based on time left
+            const messageEl = document.getElementById('message');
+            if (timeLeft <= 0) {
+                messageEl.textContent = "The day has arrived";
+            } else if (days <= 1) {
+                messageEl.textContent = "Tomorrow's the day";
+            } else if (days <= 7) {
+                messageEl.textContent = "One week left";
+            } else if (days <= 30) {
+                messageEl.textContent = "Almost there";
+            } else {
+                messageEl.textContent = "Counting down the days";
+            }
+
+            // Continue countdown if time hasn't reached zero
+            if (timeLeft > 0) {
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+
+        // Start the countdown
+        updateCountdown();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            // Recalculate bird positions on resize using current day progress
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const daysElapsed = totalDays - Math.max(0, days);
+            const dayProgress = Math.min(100, Math.max(0, (daysElapsed / totalDays) * 100));
+            
+            const maxDistance = 0;
+            const minDistance = 35;
+            const currentDistance = maxDistance + (dayProgress / 100) * (minDistance - maxDistance);
+            
+            document.getElementById('birdLeft').style.left = currentDistance + '%';
+            document.getElementById('birdRight').style.right = currentDistance + '%';
+        });
+    </script>
+</body>
+</html>
