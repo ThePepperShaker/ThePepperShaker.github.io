@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Countdown ❤️</title>
+    <title>Nuestra Cuenta Regresiva ❤️</title>
     <style>
         * {
             margin: 0;
@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Caveat', cursive;
-            background: linear-gradient(135deg, #a8e6cf 0%, #88d8a3 30%, #7fcdcd 70%, #95b8d1 100%);
+            background: linear-gradient(to bottom, #87CEEB 0%, #98D8E8 30%, #B0E0E6 70%, #C1E8ED 100%);
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
@@ -34,8 +34,16 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 25% 75%, rgba(139, 195, 74, 0.1) 0%, transparent 60%),
-                radial-gradient(circle at 75% 25%, rgba(102, 187, 106, 0.08) 0%, transparent 60%);
+                /* Clouds */
+                radial-gradient(ellipse 300px 100px at 20% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 120px at 80% 15%, rgba(255, 255, 255, 0.5) 0%, transparent 70%),
+                radial-gradient(ellipse 350px 80px at 60% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 70%),
+                radial-gradient(ellipse 250px 60px at 10% 40%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
+                radial-gradient(ellipse 300px 90px at 90% 45%, rgba(255, 255, 255, 0.4) 0%, transparent 70%),
+                /* Distant trees at bottom */
+                radial-gradient(ellipse 800px 150px at 25% 95%, rgba(34, 139, 34, 0.2) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 120px at 75% 93%, rgba(46, 125, 50, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse 900px 100px at 50% 97%, rgba(27, 94, 32, 0.1) 0%, transparent 70%);
             pointer-events: none;
         }
 
@@ -48,7 +56,7 @@
 
         .countdown-display {
             text-align: center;
-            color: #2e7d32;
+            color: #1565C0;
             margin-bottom: 60px;
         }
 
@@ -74,21 +82,21 @@
         }
 
         .time-unit {
-            background: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.8);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(139, 195, 74, 0.2);
+            border: 1px solid rgba(135, 206, 235, 0.3);
             border-radius: 12px;
             padding: 18px;
             min-width: 90px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
 
         .time-number {
             font-size: 2.8rem;
             font-weight: 700;
             display: block;
-            color: #1b5e20;
+            color: #0D47A1;
         }
 
         .time-label {
@@ -138,26 +146,26 @@
         .progress-bar {
             width: 70%;
             height: 6px;
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.6);
             border-radius: 3px;
             margin: 40px auto 20px;
             overflow: hidden;
-            border: 1px solid rgba(139, 195, 74, 0.2);
+            border: 1px solid rgba(135, 206, 235, 0.3);
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #66bb6a, #81c784);
+            background: linear-gradient(90deg, #42A5F5, #64B5F6);
             border-radius: 3px;
             transition: width 1s ease-out;
         }
 
         .message {
             text-align: center;
-            color: #2e7d32;
+            color: #1565C0;
             font-size: 1.4rem;
             font-weight: 400;
-            opacity: 0.8;
+            opacity: 0.9;
             margin-top: 20px;
         }
 
@@ -200,25 +208,25 @@
 <body>
     <div class="container">
         <div class="countdown-display">
-            <h1 class="title">Days Until November 15th</h1>
+            <h1 class="title">Días Hasta el 15 de Noviembre</h1>
             <div class="date-target">2025</div>
             
             <div class="countdown-numbers">
                 <div class="time-unit">
                     <span class="time-number" id="days">--</span>
-                    <span class="time-label">Days</span>
+                    <span class="time-label">días</span>
                 </div>
                 <div class="time-unit">
                     <span class="time-number" id="hours">--</span>
-                    <span class="time-label">Hours</span>
+                    <span class="time-label">horas</span>
                 </div>
                 <div class="time-unit">
                     <span class="time-number" id="minutes">--</span>
-                    <span class="time-label">Minutes</span>
+                    <span class="time-label">minutos</span>
                 </div>
                 <div class="time-unit">
                     <span class="time-number" id="seconds">--</span>
-                    <span class="time-label">Seconds</span>
+                    <span class="time-label">segundos</span>
                 </div>
             </div>
         </div>
@@ -234,7 +242,7 @@
         </div>
 
         <div class="message" id="message">
-            Counting down the days
+            Contando los días
         </div>
     </div>
 
@@ -296,20 +304,18 @@
                 }
             }
 
-
-
             // Update message based on time left
             const messageEl = document.getElementById('message');
             if (timeLeft <= 0) {
-                messageEl.textContent = "The day has arrived";
+                messageEl.textContent = "El día ha llegado";
             } else if (days <= 1) {
-                messageEl.textContent = "Tomorrow's the day";
+                messageEl.textContent = "Mañana es el día";
             } else if (days <= 7) {
-                messageEl.textContent = "One week left";
+                messageEl.textContent = "Queda una semana";
             } else if (days <= 30) {
-                messageEl.textContent = "Almost there";
+                messageEl.textContent = "Casi llegamos";
             } else {
-                messageEl.textContent = "Counting down the days";
+                messageEl.textContent = "Contando los días";
             }
 
             // Continue countdown if time hasn't reached zero
