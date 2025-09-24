@@ -169,34 +169,6 @@
             margin-top: 20px;
         }
 
-        .security-breach {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(220, 20, 60, 0.95);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            box-shadow: 0 0 30px rgba(220, 20, 60, 0.5);
-            border: 2px solid #FF6B6B;
-            z-index: 1000;
-            display: none;
-            animation: breach-flash 0.1s infinite alternate;
-        }
-
-        @keyframes breach-flash {
-            0% { background: rgba(220, 20, 60, 0.95); }
-            100% { background: rgba(255, 20, 60, 0.95); }
-        }
-
-        .breach-text {
-            margin: 10px 0;
-        }
-
         @keyframes heartbeat {
             0%, 100% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-50%, -50%) scale(1.2); }
@@ -229,11 +201,6 @@
             .bird { font-size: 3rem; }
             .message {
                 font-size: 1.2rem;
-            }
-            .security-breach {
-                font-size: 1.2rem;
-                padding: 20px;
-                margin: 20px;
             }
         }
     </style>
@@ -279,12 +246,6 @@
         </div>
     </div>
 
-    <div class="security-breach" id="securityBreach">
-        <div class="breach-text">🚨 ¡BRECHA DE SEGURIDAD! 🚨</div>
-        <div class="breach-text">Hackearon el contador</div>
-        <div class="breach-text">187 días restantes!!!</div>
-    </div>
-
     <script>
         // Set target date to November 15th, 2025
         const targetDate = new Date('2025-11-15T00:00:00').getTime();
@@ -294,19 +255,6 @@
         // Calculate total days from start to target
         const totalDays = Math.ceil(totalDuration / (1000 * 60 * 60 * 24));
         let lastDayCount = null;
-        let breachShown = false;
-
-        function showSecurityBreach() {
-            if (!breachShown) {
-                breachShown = true;
-                document.getElementById('securityBreach').style.display = 'block';
-                
-                // Hide after 5 seconds
-                setTimeout(() => {
-                    document.getElementById('securityBreach').style.display = 'none';
-                }, 5000);
-            }
-        }
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -318,11 +266,6 @@
             const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-            // Show security breach joke after 10 seconds
-            if (!breachShown && timeElapsed > 10000) {
-                showSecurityBreach();
-            }
 
             // Update display
             document.getElementById('days').textContent = Math.max(0, days);
@@ -399,11 +342,6 @@
             
             document.getElementById('birdLeft').style.left = currentDistance + '%';
             document.getElementById('birdRight').style.right = currentDistance + '%';
-        });
-
-        // Hide security breach when clicked
-        document.getElementById('securityBreach').addEventListener('click', () => {
-            document.getElementById('securityBreach').style.display = 'none';
         });
     </script>
 </body>
